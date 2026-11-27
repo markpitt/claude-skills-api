@@ -1,6 +1,6 @@
 # Home Assistant Service Reference
 
-This document provides a quick reference for common service calls organized by domain.
+This document provides a quick reference for common service calls organised by domain.
 
 ## Table of Contents
 
@@ -107,10 +107,10 @@ Turn on lights with optional parameters
 - `brightness_pct` (0-100) - Brightness percentage
 - `brightness_step` (-255 to 255) - Brightness change
 - `brightness_step_pct` (-100 to 100) - Brightness change percentage
-- `rgb_color` [r, g, b] - RGB color
-- `color_name` - Named color
+- `rgb_color` [r, g, b] - RGB colour
+- `color_name` - Named colour
 - `hs_color` [h, s] - Hue and saturation
-- `xy_color` [x, y] - XY color
+- `xy_color` [x, y] - XY colour
 - `color_temp` - Color temperature in mireds
 - `kelvin` - Color temperature in Kelvin
 - `transition` - Transition time in seconds
@@ -668,7 +668,7 @@ Send to specific mobile app
 - `url` / `clickAction` - URL to open
 - `image` - Image URL
 - `icon` - Icon URL
-- `color` - Notification color
+- `color` - Notification colour
 - `tag` - Notification tag (for updates)
 - `group` - Group notifications
 - `channel` - Android notification channel

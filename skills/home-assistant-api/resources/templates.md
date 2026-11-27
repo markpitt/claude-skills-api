@@ -259,7 +259,7 @@ curl -X POST \
   http://localhost:8123/api/template
 ```
 
-### Group and Summarize
+### Group and Summarise
 
 ```bash
 # Summary of all domains and entity counts

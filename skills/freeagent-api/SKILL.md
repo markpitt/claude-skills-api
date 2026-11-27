@@ -1,181 +1,90 @@
 ---
 name: freeagent-api
-description: Interacts with the FreeAgent accounting API to manage invoices, contacts, projects, expenses, timeslips, and other financial data. Use when the user needs to retrieve, create, update, or analyse FreeAgent accounting information via the API. All write operations (POST/PUT/DELETE) require explicit user confirmation before execution and default to sandbox unless production is explicitly requested.
+description: Calls the FreeAgent accounting API for invoices, estimates and credit notes, contacts, projects, timeslips, expenses, bank accounts and transactions, categories and company details, with OAuth 2.0 set-up, token refresh, paging, rate limits and a Python client template. Reads by default. Every create, update or delete is previewed and waits for explicit confirmation, and runs against the sandbox unless production is named. Use when asked to list or analyse FreeAgent data, create or update an invoice, log a timeslip or expense, reconcile bank transactions through the API, script against api.freeagent.com, or debug a FreeAgent 401, 422 or 429. Do NOT use for bookkeeping or tax advice with no API call, for other accounting systems such as Xero or QuickBooks, or for the FreeAgent web interface.
 license: Apache-2.0
 allowed-tools: Bash, Read, Write, Edit, WebFetch
 metadata:
-  version: "2.0"
+  version: "3.0.0"
 ---
 
-# FreeAgent API Orchestration Skill
+# FreeAgent API
 
-FreeAgent is an online accounting system for freelancers and small businesses. This skill provides intelligent navigation to FreeAgent API resources and orchestrates common workflows.
+FreeAgent is online accounting for freelancers and small businesses. Its API is REST and JSON at
+`https://api.freeagent.com/v2/`, with a separate sandbox at `https://api.sandbox.freeagent.com/v2/`
+that has its own accounts and its own OAuth apps.
 
-## Security & Authorisation
+## Live money: the rules for changing anything
 
-> **This skill interacts with live financial data. The following rules are mandatory and must never be skipped.**
+This skill touches real accounts, so a mistake is an invoice sent to a client or a bank record
+that is wrong at year end. The rules follow from that.
 
-### Write Operation Policy (POST / PUT / DELETE)
+- **Read unless asked to write.** Treat a request as analysis unless it plainly asks to create,
+  update or delete. If it is unclear, ask. Never infer that someone wants a change.
+- **Preview, then wait.** Before any POST, PUT or DELETE, show the method, the endpoint and the
+  JSON body, and say in plain words what will change. Go ahead only on a clear yes. Anything
+  ambiguous is a no.
+- **Sandbox unless production is named.** Writes go to the sandbox URL unless the person says
+  production in so many words.
+- **Ask twice for the irreversible ones.** Deleting any financial record, creating or changing
+  bank transactions or explanations, any bulk change, and changing an invoice's status (marking it
+  sent, cancelling it, applying a credit note) get the preview, a yes, and then a second question.
+  These are the changes an accountant would have to unpick.
 
-Before executing any state-changing API call:
+Keep `FREEAGENT_ACCESS_TOKEN` and `FREEAGENT_REFRESH_TOKEN` in the environment. Never print them
+or put them in code. On a `401`, say the token has expired and walk through re-authenticating,
+rather than refreshing quietly in the background.
 
-1. **Show a preview**: Display the full request (HTTP method, endpoint, JSON body) and describe in plain language exactly what will change in the user's account.
-2. **Wait for explicit confirmation**: Do not proceed until the user replies with an unambiguous affirmative (e.g., "yes", "confirm", "proceed"). Treat ambiguous replies as a no.
-3. **Sandbox by default**: Use `https://api.sandbox.freeagent.com/v2/` for all write operations unless the user explicitly names the production environment.
+## Getting a token
 
-### Read-Only Default
+1. Create an OAuth app at https://dev.freeagent.com/ (and a separate one for the sandbox).
+2. Send the person to `https://api.freeagent.com/v2/approve_app?client_id=CLIENT_ID` to approve it
+   and get an authorisation code.
+3. Exchange the code at `https://api.freeagent.com/v2/token_endpoint`.
+4. Store both tokens in environment variables, and send
+   `Authorization: Bearer $FREEAGENT_ACCESS_TOKEN` on every request.
 
-Treat every incoming request as read-only analysis unless the user explicitly asks to **create**, **update**, or **delete** data. When intent is ambiguous, ask before making any changes. Never infer write intent.
+`resources/authentication-setup.md` has the full flow, refresh, and the usual failures.
 
-### High-Risk Operations (Confirm Twice)
+## How the API behaves
 
-For the operations below, show the preview, receive one confirmation, then ask a second time before executing:
+- Responses wrap the resource in its name: `{"contact": {...}}` for one, `{"contacts": [...]}` for
+  a list. Refer to other records by their full URL, such as
+  `https://api.freeagent.com/v2/contacts/123`, not by a bare ID.
+- Lists page with `page` and `per_page`: 25 by default, 100 at most. Follow the `Link` header's
+  `next` rather than building page URLs, and read `X-Total-Count` for the total.
+- Most lists filter with `view` (`?view=open_or_overdue` on invoices, `?view=active` on contacts)
+  and `updated_since` (an ISO 8601 timestamp).
+- Dates are `YYYY-MM-DD` and timestamps `YYYY-MM-DDTHH:MM:SSZ`.
+- The limits are 120 requests a minute and 3,600 an hour per user, and 15 token refreshes a minute.
+  On a `429`, back off (honouring `Retry-After` when it is sent) before trying again.
+- A `422` names the fields that failed validation in its `errors` body. Read it rather than
+  retrying with the same request.
 
-- Deleting any financial record (invoice, expense, bank transaction, contact, etc.)
-- Creating or modifying bank transactions or reconciliation records
-- Bulk operations that affect multiple records in a single request
-- Changing invoice status (e.g., marking as sent, voiding, applying a credit note)
+| Task | Method and path |
+|---|---|
+| List active contacts | `GET /v2/contacts?view=active&per_page=100` |
+| One invoice | `GET /v2/invoices/456` |
+| Create a contact | `POST /v2/contacts` with a JSON body |
+| Update an invoice | `PUT /v2/invoices/456` with the changed fields |
+| Delete a timeslip | `DELETE /v2/timeslips/789` |
 
-### Token & Credential Handling
+## Templates
 
-- Never log, echo, or display the value of `FREEAGENT_ACCESS_TOKEN` or `FREEAGENT_REFRESH_TOKEN`.
-- Never store credentials in source code: use environment variables only.
-- If a token appears expired (401 response), guide the user through re-authentication rather than attempting to refresh silently without notification.
+- `templates/api-request-template.sh`, run as `bash templates/api-request-template.sh`: a curl
+  wrapper for any method and endpoint.
+- `templates/python-client.py`, run with `python3` or imported: a `FreeAgentClient` class with
+  paging, rate-limit handling and helpers for the common resources.
 
-## Quick Reference: Which Resource Do I Need?
+## References
 
-| Task | Load Resource | API Domains |
-|------|---------------|-------------|
-| Set up OAuth, manage tokens, test API | `resources/authentication-setup.md` | OAuth 2.0, token management |
-| Create/update contacts, manage clients/suppliers | `resources/contacts-organizations.md` | Contacts, companies, users |
-| Manage invoices, projects, expenses, timeslips | `resources/accounting-objects.md` | Core financial entities |
-| Bank accounts, transactions, reconciliation | `resources/banking-financial.md` | Banking, cash flow |
-| Error handling, rate limits, retries, caching | `resources/advanced-patterns.md` | Production patterns |
-| Common workflows, code examples, integration tips | `resources/examples.md` | Real-world usage |
-| All endpoints (reference only) | `resources/endpoints.md` | Complete API reference |
+| File | Covers |
+|---|---|
+| `resources/authentication-setup.md` | OAuth set-up, refresh, token storage, 401 troubleshooting |
+| `resources/contacts-organizations.md` | Contacts, the company record, users |
+| `resources/accounting-objects.md` | Invoices, estimates, credit notes, projects, expenses, timeslips |
+| `resources/banking-financial.md` | Bank accounts, transactions and explanations, categories |
+| `resources/advanced-patterns.md` | Errors, rate limits, retries, caching, validation |
+| `resources/examples.md` | Worked examples with the Python client, including bulk import and export |
+| `resources/endpoints.md` | Every endpoint, for lookup |
 
-## Orchestration Protocol
-
-### Phase 1: Task Analysis
-
-Identify what the user needs:
-
-**By Resource Type:**
-- **Authentication issue?** → `authentication-setup.md`
-- **Managing contacts/clients?** → `contacts-organizations.md`
-- **Financial data (invoices, expenses, projects)?** → `accounting-objects.md`
-- **Banking/reconciliation?** → `banking-financial.md`
-- **Error or production concern?** → `advanced-patterns.md`
-- **Practical example needed?** → `examples.md`
-
-**By HTTP Method:**
-- GET: List or retrieve → check relevant domain resource
-- POST: Create → load resource file, check required fields
-- PUT: Update → load resource file, verify patch fields
-- DELETE: Remove → check resource-specific constraints
-
-### Phase 2: Resource Navigation
-
-Load the appropriate resource file and:
-1. Find the endpoint section (e.g., "Contacts", "Invoices", "Bank Accounts")
-2. Review required/optional parameters
-3. Check request and response formats
-4. Use provided curl or Python examples
-
-For template code: `templates/api-request-template.sh` (run with `bash`) or `templates/python-client.py` (run with `python3`)
-
-### Phase 3: Execution & Validation
-
-**Before API call:**
-- Verify authentication is set up (check `authentication-setup.md` if needed)
-- Validate required fields are present
-- Format dates as ISO 8601 (YYYY-MM-DD) and timestamps (YYYY-MM-DDTHH:MM:SSZ)
-- Use correct resource URLs (e.g., `https://api.freeagent.com/v2/contacts/123`)
-- **For POST / PUT / DELETE:** Follow the [Write Operation Policy](#write-operation-policy-post--put--delete). Show a preview and obtain explicit user confirmation before proceeding. Use sandbox URL unless the user has explicitly requested production.
-
-**During API call:**
-- Use templates as starting points
-- Monitor rate limit headers: `X-RateLimit-Remaining`
-- Implement retry logic for 429 errors (see `advanced-patterns.md`)
-
-**After API call:**
-- Check response status code
-- Parse JSON response (resource name is top-level key)
-- Apply error handling patterns if needed
-
-## Quick Start: Authentication
-
-1. Create OAuth app: https://dev.freeagent.com/
-2. Get authorisation code: `https://api.freeagent.com/v2/approve_app?client_id=YOUR_ID`
-3. Exchange for tokens at `https://api.freeagent.com/v2/token_endpoint`
-4. Store in environment variables: `FREEAGENT_ACCESS_TOKEN`, `FREEAGENT_REFRESH_TOKEN`
-5. Include in every request: `Authorization: Bearer $FREEAGENT_ACCESS_TOKEN`
-
-→ See [Authentication & Setup](resources/authentication-setup.md) for detailed walkthrough
-
-## API Domain Overview
-
-**Production URL:** `https://api.freeagent.com/v2/`
-**Sandbox URL:** `https://api.sandbox.freeagent.com/v2/` (test without affecting production)
-
-| Domain | Primary Endpoints | Use Case |
-|--------|------------------|----------|
-| **Authentication** | `/token_endpoint` | OAuth flows, token refresh |
-| **Contacts & Organisations** | `/contacts`, `/company`, `/users` | Client/supplier management |
-| **Accounting Objects** | `/invoices`, `/projects`, `/expenses`, `/timeslips`, `/estimates`, `/credit_notes` | Core financial workflow |
-| **Banking & Financial** | `/bank_accounts`, `/bank_transactions`, `/categories`, `/tasks` | Cash flow, reconciliation |
-
-**Rate Limits:** 120 requests/minute, 3600 requests/hour
-**Response Format:** JSON with resource wrapper (e.g., `{"contact": {...}}` or `{"contacts": [...]}`)
-
-## Common HTTP Patterns
-
-| Operation | Method | Example |
-|-----------|--------|---------|
-| List items | GET | `GET /v2/contacts?view=active&page=1&per_page=100` |
-| Get one item | GET | `GET /v2/contacts/123` |
-| Create item | POST | `POST /v2/contacts` (with JSON body) |
-| Update item | PUT | `PUT /v2/invoices/456` (with partial JSON) |
-| Delete item | DELETE | `DELETE /v2/timeslips/789` |
-| Filter results | GET params | `?view=open_or_overdue`, `?updated_since=2025-01-01T00:00:00Z` |
-
-## Templates & Code Examples
-
-**Bash/cURL Template:** `templates/api-request-template.sh`, run as `bash templates/api-request-template.sh`
-- Flexible curl template for any endpoint
-- GET/POST/PUT/DELETE support
-- Header and parameter configuration
-
-**Python Client:** `templates/python-client.py`, run as `python3 templates/python-client.py` or imported
-- Reusable FreeAgentClient class
-- Error handling and rate limit support
-- Convenience methods for common resources
-
-**Practical Examples:** `resources/examples.md`
-- Real-world workflows (create invoice, log timeslip, etc.)
-- Python code patterns with the client class
-- Error handling examples
-- Bulk operations (import/export)
-
-## Resource Files Summary
-
-| File | Lines | Focus |
-|------|-------|-------|
-| `authentication-setup.md` | ~180 | OAuth setup, token management, security |
-| `contacts-organizations.md` | ~250 | Contact CRUD, bulk operations, company info |
-| `accounting-objects.md` | ~350 | Invoices, projects, expenses, timeslips, pagination |
-| `banking-financial.md` | ~250 | Bank accounts, transactions, reconciliation, categories |
-| `advanced-patterns.md` | ~350 | Error handling, rate limits, retries, caching, validation |
-| `examples.md` | ~400 | Practical code examples, integration patterns |
-| `endpoints.md` | ~300 | Complete API reference (use for quick lookup) |
-
-## Troubleshooting Quick Links
-
-**401 Unauthorized** → [Authentication Setup](resources/authentication-setup.md#troubleshooting)
-**422 Validation Error** → [Advanced Patterns](resources/advanced-patterns.md#validation-patterns)
-**429 Rate Limit** → [Advanced Patterns](resources/advanced-patterns.md#rate-limiting)
-**Specific Endpoint Help** → Check relevant domain resource file above
-
----
-
-**Remember:** Load only the resource file(s) you need for the current task. Start with the Quick Reference table above to identify which resource contains your answer.
+External: the [FreeAgent API docs](https://dev.freeagent.com/docs).

@@ -28,7 +28,7 @@ GET /v2/contacts
   - (omit for all contacts)
 - `updated_since` - ISO 8601 timestamp to get changes since date
 - `page` - Page number (for pagination)
-- `per_page` - Items per page (default 100, max ~200)
+- `per_page` - Items per page (default 25, maximum 100)
 
 **Examples:**
 ```bash

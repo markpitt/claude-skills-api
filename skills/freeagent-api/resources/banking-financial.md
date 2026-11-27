@@ -147,7 +147,7 @@ curl -X POST \
 GET /v2/categories
 ```
 
-Returns all available expense and income categories for categorizing transactions.
+Returns all available expense and income categories for categorising transactions.
 
 **Response:**
 ```json
@@ -194,7 +194,7 @@ Returns all available expense and income categories for categorizing transaction
 GET /v2/tasks
 ```
 
-Returns task types available for categorizing timeslips.
+Returns task types available for categorising timeslips.
 
 **Response:**
 ```json

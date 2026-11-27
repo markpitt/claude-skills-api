@@ -2,10 +2,10 @@
 
 # adguard-home-api
 
-Query and manage an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out why a domain is blocked, allowlisting, persistent clients and tags, blocklists, rate limiting, DHCP leases and the access list. Use when a site or app breaks or shows CAPTCHAs behind AdGuard Home, for DNS audits, or when asked to change AdGuard settings. Do NOT use for Pi-hole or other DNS filters.
+Queries and manages an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out why a domain is blocked, allowlisting, persistent clients and tags, blocklists, rate limiting, DHCP leases and the access list. Use when a site or app breaks or shows CAPTCHAs behind AdGuard Home, for DNS audits, or when asked to change AdGuard settings. Do NOT use for Pi-hole or other DNS filters.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -23,4 +23,4 @@ Settings, Capabilities, Skills. Released builds attach a ready-made zip.
 ## Part of a larger set
 
 One of the API skills (`claude-skills-api`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

@@ -2,10 +2,10 @@
 
 # microsoft-graph-api
 
-Orchestration hub for Microsoft Graph API across Microsoft 365 services. Use for Graph API integrations, querying Microsoft 365 data, and building applications that interact with Azure AD.
+Calls Microsoft Graph, the REST API for Microsoft 365 and Microsoft Entra ID (formerly Azure AD), for users, groups and directory objects, mail, calendars and meetings, OneDrive and SharePoint files, Teams chats and channels, Planner, To Do and OneNote, and security and device reports. Covers app registration, delegated versus application permissions, the client credentials flow, MSAL and the Graph SDKs, OData query parameters, paging, batching, delta queries and throttling. Use when writing code or scripts that call graph.microsoft.com, registering an app to read Microsoft 365 data, working out which Graph permission an operation needs, or debugging a 401, 403 or 429 from Graph. Do NOT use for Azure resource management through ARM or the Azure CLI, for Azure DevOps (use azure-devops), for Exchange or SharePoint PowerShell modules, or for graph data structures and charts that have nothing to do with Microsoft.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 2.1
+- **Version:** 3.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -39,4 +39,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the API skills (`claude-skills-api`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

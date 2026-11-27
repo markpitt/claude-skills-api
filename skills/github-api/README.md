@@ -2,10 +2,10 @@
 
 # github-api
 
-Orchestrates GitHub API access across all services. Intelligently routes API operations to specialised resource files covering authentication, repositories, issues/PRs, workflows, security, and more. Use when implementing GitHub integrations, automating operations, or building applications that interact with GitHub.
+Calls the GitHub REST and GraphQL APIs, directly or through gh api, for repositories, branches and releases, issues and pull requests, reviews, Actions workflows and runs, users, organisations and teams, search, code scanning, Dependabot, webhooks, packages and GitHub Apps. Covers authentication with fine-grained tokens and App installation tokens, the X-GitHub-Api-Version header, rate limits, pagination and errors. Use when writing code or scripts that call api.github.com, automating repository or pull request operations, building a GitHub integration or App, choosing between REST and GraphQL, or debugging a 401, 403, 404 or 422 from the API. Do NOT use for everyday gh commands that need no API call, for Git itself (rebasing, merging, history), for GitLab or Azure DevOps (use azure-devops), or for writing Actions workflow YAML with no API involved.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 2.0
+- **Version:** 3.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -35,4 +35,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the API skills (`claude-skills-api`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

@@ -33,14 +33,14 @@ This document provides detailed information about common Home Assistant entity t
 ### Common Attributes
 - `brightness` (0-255) - Current brightness level
 - `color_temp` (int) - Color temperature in mireds
-- `rgb_color` ([r, g, b]) - RGB color values (0-255)
-- `xy_color` ([x, y]) - CIE 1931 color space coordinates
+- `rgb_color` ([r, g, b]) - RGB colour values (0-255)
+- `xy_color` ([x, y]) - CIE 1931 colour space coordinates
 - `hs_color` ([h, s]) - Hue (0-360) and saturation (0-100)
 - `effect` (string) - Current light effect
 - `supported_features` (int) - Bitmask of supported features
 - `friendly_name` (string) - Display name
-- `supported_color_modes` (list) - Available color modes
-- `color_mode` (string) - Current color mode
+- `supported_color_modes` (list) - Available colour modes
+- `color_mode` (string) - Current colour mode
 
 ### Services
 
@@ -62,8 +62,8 @@ Parameters:
 - `color_temp` - Color temperature
 - `kelvin` - Color temperature in Kelvin
 - `hs_color` - Hue and saturation
-- `xy_color` - XY color
-- `color_name` - Named color (e.g., "red", "blue")
+- `xy_color` - XY colour
+- `color_name` - Named colour (e.g., "red", "blue")
 - `transition` - Transition time in seconds
 - `effect` - Light effect name
 - `flash` - Flash mode ("short" or "long")

@@ -331,7 +331,7 @@ To place between two items, use hints from both:
 2. **Use group-based plans** (Planner requires Microsoft 365 Group)
 3. **Order tasks** using orderHint
 4. **Set due dates** for better tracking
-5. **Use categories** for visual organization
+5. **Use categories** for visual organisation
 6. **Add checklist items** for subtasks
 7. **Include task descriptions** for clarity
 8. **Use priority field** for importance
@@ -562,12 +562,12 @@ GET /me/todo/lists/{list-id}/tasks?$filter=dueDateTime/dateTime lt '{now}' and s
 
 ## To Do Best Practices
 
-1. **Use importance** to prioritize tasks
+1. **Use importance** to prioritise tasks
 2. **Set reminders** for time-sensitive tasks
 3. **Use checklist items** for multi-step tasks
 4. **Link resources** to provide context
 5. **Filter completed tasks** to focus on active work
-6. **Set due dates** for better organization
+6. **Set due dates** for better organisation
 7. **Use body** for detailed descriptions
 8. **Create separate lists** for different projects
 9. **Update status** as work progresses
@@ -577,7 +577,7 @@ GET /me/todo/lists/{list-id}/tasks?$filter=dueDateTime/dateTime lt '{now}' and s
 
 # Microsoft OneNote - Note Taking
 
-OneNote is for creating and organizing digital notes with text, images, and tables.
+OneNote is for creating and organising digital notes with text, images, and tables.
 
 ## Notebooks
 
@@ -907,7 +907,7 @@ Content-Type: text/html
 1. **Use semantic HTML** - h1, h2, p, etc.
 2. **Include page titles** in HTML head
 3. **Use data-tag** for task tracking
-4. **Organize with sections** and section groups
+4. **Organise with sections** and section groups
 5. **Make content searchable** - use descriptive text
 6. **Use multipart for media** - multipart/form-data for images
 7. **Handle async operations** - page creation returns 201

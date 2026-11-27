@@ -493,7 +493,7 @@ Content-Type: application/json
 }
 ```
 
-**Preset colors:** `preset0` through `preset24`
+**Preset colours:** `preset0` through `preset24`
 
 ### Update Category
 ```http

@@ -364,7 +364,7 @@ GET {deltaLink}
 - Sync user directory
 - Track mailbox changes
 - Monitor calendar updates
-- File synchronization
+- File synchronisation
 
 ---
 
@@ -461,7 +461,7 @@ GET /users?$filter=assignedLicenses/any(l:l/skuId eq '{sku-id}')
 
 ---
 
-## Performance Optimization
+## Performance Optimisation
 
 ### Use $select to Limit Data
 ```http
@@ -543,7 +543,7 @@ Implement exponential backoff.
 1. **Always use $select** when you don't need all properties
 2. **Use $filter** instead of client-side filtering
 3. **Implement pagination** for large result sets
-4. **Use delta queries** for synchronization
+4. **Use delta queries** for synchronisation
 5. **Batch requests** when making multiple calls
 6. **Handle @odata.nextLink** automatically
 7. **Set appropriate $top** values (50-100 typical)
