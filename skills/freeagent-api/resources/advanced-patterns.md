@@ -2,7 +2,7 @@
 
 ## Overview
 
-Advanced integration patterns for production-grade FreeAgent API implementations, including error handling, rate limiting, retry logic, caching, and optimization strategies.
+Advanced integration patterns for production-grade FreeAgent API implementations, including error handling, rate limiting, retry logic, caching, and optimisation strategies.
 
 ## Error Handling
 

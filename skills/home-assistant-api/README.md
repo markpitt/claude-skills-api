@@ -2,10 +2,10 @@
 
 # home-assistant-api
 
-Orchestrates access to the Home Assistant REST API for programmatic control of smart home devices. Routes requests to specialised resource files based on task type - authentication, state management, service calls, entity types, or advanced queries. Provides decision tables for selecting appropriate endpoints and managing integrations. Use when writing code or scripts against the Home Assistant REST or WebSocket API. Do NOT use for installing, upgrading or troubleshooting a particular Home Assistant installation (containers, networking, tunnels).
+Calls the Home Assistant REST and WebSocket APIs from code or scripts, for reading entity states and history, calling services to control lights, switches, climate, covers, locks, fans and media players, triggering automations and scripts, rendering templates on the server, firing events, and checking or reloading configuration. Covers long-lived access tokens, the Authorization header, entity IDs, service data, response handling and a small Python client. Use when writing code or scripts against a Home Assistant instance, asking which endpoint turns on a light or reads a sensor, counting or filtering entities, or debugging a 401 or 404 from the API. Do NOT use for installing, upgrading or troubleshooting a particular Home Assistant installation (containers, networking, tunnels), for writing automations in the YAML editor with no API involved, or for general REST API design.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 2.1
+- **Version:** 3.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -35,4 +35,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the API skills (`claude-skills-api`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

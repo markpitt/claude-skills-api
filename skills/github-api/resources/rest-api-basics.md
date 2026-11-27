@@ -52,7 +52,7 @@ For building integrations:
 # Installation access token (store in env var, never inline)
 export INSTALLATION_TOKEN="<installation-access-token>"
 curl -H "Authorization: Bearer $INSTALLATION_TOKEN" \
-  -H "Accept: application/vnd.github.v3+json" \
+  -H "Accept: application/vnd.github+json" \
   https://api.github.com/installation/repositories
 ```
 
@@ -68,19 +68,30 @@ curl -H "Authorization: token $GITHUB_TOKEN" \
 
 ## API Versions
 
-### REST API (v3)
+### REST API
 Base URL: `https://api.github.com`
+
+The REST API is versioned by date, through the `X-GitHub-Api-Version` header. The current versions
+are `2026-03-10`, the first calendar version with breaking changes, and `2022-11-28`, which a
+request without the header still gets and which is supported until 10 March 2028. Send the header
+on every request so an upgrade is a deliberate change, read the breaking-changes list before moving
+to a new version, and expect `410 Gone` from a version that has been retired. The old "v3" label and
+the `application/vnd.github.v3+json` media type predate this scheme.
 
 ```bash
 # Using gh CLI
-gh api /repos/owner/repo
+gh api -H "X-GitHub-Api-Version: 2026-03-10" /repos/owner/repo
 
 # Using curl
-curl -H "Accept: application/vnd.github.v3+json" \
+curl -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
   https://api.github.com/repos/owner/repo
 ```
 
-### GraphQL API (v4)
+See [API versions](https://docs.github.com/en/rest/about-the-rest-api/api-versions).
+
+### GraphQL API
 Endpoint: `https://api.github.com/graphql`
 
 ```bash
@@ -189,7 +200,7 @@ gh api graphql -f query='
 - `304 Not Modified`: Resource hasn't changed (with conditional requests)
 - `400 Bad Request`: Invalid request
 - `401 Unauthorized`: Authentication required or failed
-- `403 Forbidden`: Authentication succeeded but not authorized / rate limited
+- `403 Forbidden`: Authentication succeeded but not authorised / rate limited
 - `404 Not Found`: Resource doesn't exist
 - `422 Unprocessable Entity`: Validation failed
 - `500 Internal Server Error`: GitHub server error
@@ -234,7 +245,7 @@ gh api repos/owner/repo 2>&1 | jq -r '.message'
 - Prefer GitHub Apps for integrations
 - Use `gh` CLI when available
 
-### 2. Optimize API Usage
+### 2. Optimise API Usage
 - Use GraphQL for complex data requirements
 - Implement pagination properly
 - Use conditional requests with ETags

@@ -155,7 +155,7 @@ class GraphAPITester:
         if success_count == total_count:
             print("\n🎉 All tests passed! Your Microsoft Graph API connection is working.")
         elif success_count > 0:
-            print("\n⚠️  Some tests failed. Check permissions in Azure AD app registration.")
+            print("\n⚠️  Some tests failed. Check permissions in Microsoft Entra ID app registration.")
         else:
             print("\n❌ All tests failed. Verify your credentials and app configuration.")
 
@@ -165,7 +165,7 @@ class GraphAPITester:
         print("="*60)
         print("If tests failed, verify:")
         print("1. Client ID, Tenant ID, and Client Secret are correct")
-        print("2. Application permissions are granted in Azure AD")
+        print("2. Application permissions are granted in Microsoft Entra ID")
         print("3. Admin consent has been granted for application permissions")
         print("4. Application has required permissions:")
         print("   - Organization.Read.All (for organization info)")

@@ -1,6 +1,6 @@
 # Applications & Authentication - Microsoft Graph API
 
-This resource covers app registrations, service principals, OAuth2 permissions, authentication methods, and credentials management in Azure AD.
+This resource covers app registrations, service principals, OAuth2 permissions, authentication methods, and credentials management in Microsoft Entra ID.
 
 ## Contents
 
@@ -34,7 +34,7 @@ This resource covers app registrations, service principals, OAuth2 permissions, 
 ## Overview
 
 Authentication in Microsoft Graph follows OAuth 2.0 standards:
-1. App registers in Azure AD
+1. App registers in Microsoft Entra ID
 2. User grants permissions (delegated) or app gets permissions (application)
 3. Access token obtained
 4. Token used in API calls
@@ -684,7 +684,7 @@ POST /applications/{id}/federatedIdentityCredentials
 | Issue | Solution |
 |-------|----------|
 | 401 Invalid token | Check token expiration, request new token |
-| 403 Permission denied | Verify app has required permissions in Azure AD |
+| 403 Permission denied | Verify app has required permissions in Microsoft Entra ID |
 | App not found | Verify appId/application object ID is correct |
 | Credential expired | Renew password/certificate credentials |
 | Cannot add secret | Verify you have Application.ReadWrite.All |

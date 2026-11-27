@@ -10,7 +10,7 @@ description: Querying, updating, and monitoring entity states
 Every entity in Home Assistant has:
 
 - **State**: The current value (on, off, 22.5°C, etc.)
-- **Attributes**: Additional metadata (brightness, color, friendly name, etc.)
+- **Attributes**: Additional metadata (brightness, colour, friendly name, etc.)
 - **Last Changed**: When the state changed
 - **Last Updated**: When any attribute changed
 - **Context**: Information about who/what triggered the change

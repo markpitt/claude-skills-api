@@ -18,7 +18,7 @@ GET /v2/invoices
 - `project` - Filter by project URL
 - `updated_since` - ISO 8601 timestamp (e.g., "2025-01-01T00:00:00Z")
 - `page` - Page number (for pagination)
-- `per_page` - Items per page (default 100)
+- `per_page` - Items per page (default 25, maximum 100)
 
 **Example:**
 ```bash
@@ -69,7 +69,7 @@ POST /v2/invoices
 **Optional Fields:**
 - `reference` - Invoice number (defaults to auto-generated)
 - `payment_terms_in_days` - Days until due (default 30)
-- `project` - Project URL for categorization
+- `project` - Project URL for categorisation
 - `currency` - Currency code (default uses company currency)
 - `comments` - Invoice notes/terms
 - `po_reference` - Purchase order number

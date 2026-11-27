@@ -16,17 +16,17 @@ FreeAgent uses OAuth 2.0 for authentication. All API requests require an Authori
 2. Navigate to **Developer Dashboard** at https://dev.freeagent.com/
 3. Create a new application
 4. Note your **OAuth Client ID** and **Client Secret**
-5. Set your **Redirect URI** (where users return after authorization)
+5. Set your **Redirect URI** (where users return after authorisation)
 
 ### Step 2: Obtain Authorization
 
-Direct users to the authorization endpoint:
+Direct users to the authorisation endpoint:
 
 ```
 https://api.freeagent.com/v2/approve_app?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code
 ```
 
-After the user authorizes, FreeAgent redirects to your `redirect_uri` with an authorization code:
+After the user authorises, FreeAgent redirects to your `redirect_uri` with an authorisation code:
 
 ```
 YOUR_REDIRECT_URI?code=AUTHORIZATION_CODE&state=YOUR_STATE_VALUE

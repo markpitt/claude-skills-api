@@ -237,7 +237,7 @@ Content-Type: application/json
 }
 ```
 
-**Conflict behaviors:**
+**Conflict behaviours:**
 - `rename` - Rename if exists
 - `replace` - Replace if exists
 - `fail` - Fail if exists (default)
@@ -372,7 +372,7 @@ Content-Type: application/json
 
 **Scopes:**
 - `anonymous` - Anyone with the link
-- `organization` - Anyone in your organization
+- `organization` - Anyone in your organisation
 - `users` - Specific users (requires recipients)
 
 ### Create Link with Password

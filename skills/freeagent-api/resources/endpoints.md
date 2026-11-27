@@ -1,6 +1,6 @@
 # FreeAgent API Endpoints Reference
 
-Comprehensive reference for FreeAgent API v2 endpoints.
+Full reference for FreeAgent API v2 endpoints.
 
 Base URL: `https://api.freeagent.com/v2/`
 

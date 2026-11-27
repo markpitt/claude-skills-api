@@ -2,10 +2,10 @@
 
 # freeagent-api
 
-Interacts with the FreeAgent accounting API to manage invoices, contacts, projects, expenses, timeslips, and other financial data. Use when the user needs to retrieve, create, update, or analyse FreeAgent accounting information via the API. All write operations (POST/PUT/DELETE) require explicit user confirmation before execution and default to sandbox unless production is explicitly requested.
+Calls the FreeAgent accounting API for invoices, estimates and credit notes, contacts, projects, timeslips, expenses, bank accounts and transactions, categories and company details, with OAuth 2.0 set-up, token refresh, paging, rate limits and a Python client template. Reads by default. Every create, update or delete is previewed and waits for explicit confirmation, and runs against the sandbox unless production is named. Use when asked to list or analyse FreeAgent data, create or update an invoice, log a timeslip or expense, reconcile bank transactions through the API, script against api.freeagent.com, or debug a FreeAgent 401, 422 or 429. Do NOT use for bookkeeping or tax advice with no API call, for other accounting systems such as Xero or QuickBooks, or for the FreeAgent web interface.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 2.0
+- **Version:** 3.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -37,4 +37,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the API skills (`claude-skills-api`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

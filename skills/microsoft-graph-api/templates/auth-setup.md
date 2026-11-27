@@ -4,10 +4,10 @@ This template provides authentication patterns and setup instructions for Micros
 
 ## Authentication Overview
 
-Microsoft Graph uses OAuth 2.0 and Azure AD for authentication. You need:
+Microsoft Graph uses OAuth 2.0 and Microsoft Entra ID for authentication. You need:
 
-1. **Azure AD Tenant** - Your organization's directory
-2. **App Registration** - Application identity in Azure AD
+1. **Microsoft Entra tenant** - Your organisation's directory
+2. **App Registration** - Application identity in Microsoft Entra ID
 3. **Permissions** - Delegated or Application permissions
 4. **Access Token** - Bearer token for API requests
 
@@ -18,9 +18,9 @@ Microsoft Graph uses OAuth 2.0 and Azure AD for authentication. You need:
 **Use when:** User signs in to web application
 
 **Steps:**
-1. Redirect user to authorization endpoint
+1. Redirect user to authorisation endpoint
 2. User consents to permissions
-3. Receive authorization code
+3. Receive authorisation code
 4. Exchange code for access token
 
 **Authorization Request:**
@@ -174,7 +174,7 @@ No client secret needed!
 
 ### 1. Register Application
 
-1. Go to Azure Portal → Azure Active Directory → App Registrations
+1. Go to Microsoft Entra admin centre (entra.microsoft.com) → App registrations
 2. Click "New registration"
 3. Provide:
    - **Name:** Your application name
@@ -426,7 +426,7 @@ Azure automatically handles authentication.
 ### Common Errors
 
 **AADSTS65001: No permission**
-- Ensure permissions are granted in app registration
+- Make sure permissions are granted in app registration
 - Admin consent may be required
 
 **AADSTS700016: Invalid client secret**
@@ -452,7 +452,7 @@ Decode token at https://jwt.ms to verify:
 
 ## Additional Resources
 
-- **MSAL Libraries:** https://docs.microsoft.com/azure/active-directory/develop/msal-overview
-- **Permissions Reference:** https://docs.microsoft.com/graph/permissions-reference
+- **MSAL Libraries:** https://learn.microsoft.com/entra/identity-platform/msal-overview
+- **Permissions Reference:** https://learn.microsoft.com/graph/permissions-reference
 - **OAuth 2.0:** https://oauth.net/2/
-- **Azure AD Docs:** https://docs.microsoft.com/azure/active-directory/develop/
+- **Microsoft identity platform docs:** https://learn.microsoft.com/entra/identity-platform/

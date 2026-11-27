@@ -1,9 +1,9 @@
 ---
 name: dokploy-api
-description: Inspect and operate Docker Compose stacks managed by a Dokploy instance through its HTTP API. Covers listing projects and composes, reading a compose with secrets masked, restart, deploy, pinning images, editing a compose with yq, and backup and restore. Use when asked to restart, redeploy, upgrade, pin or inspect a self-hosted service that Dokploy manages. Do NOT use for plain `docker compose` projects that Dokploy does not manage.
+description: Inspects and operates Docker Compose stacks managed by a Dokploy instance through its HTTP API. Covers listing projects and composes, reading a compose with secrets masked, restart, deploy, pinning images, editing a compose with yq, and backup and restore. Use when asked to restart, redeploy, upgrade, pin or inspect a self-hosted service that Dokploy manages. Do NOT use for plain `docker compose` projects that Dokploy does not manage.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Dokploy API

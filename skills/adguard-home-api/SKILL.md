@@ -1,9 +1,9 @@
 ---
 name: adguard-home-api
-description: Query and manage an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out why a domain is blocked, allowlisting, persistent clients and tags, blocklists, rate limiting, DHCP leases and the access list. Use when a site or app breaks or shows CAPTCHAs behind AdGuard Home, for DNS audits, or when asked to change AdGuard settings. Do NOT use for Pi-hole or other DNS filters.
+description: Queries and manages an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out why a domain is blocked, allowlisting, persistent clients and tags, blocklists, rate limiting, DHCP leases and the access list. Use when a site or app breaks or shows CAPTCHAs behind AdGuard Home, for DNS audits, or when asked to change AdGuard settings. Do NOT use for Pi-hole or other DNS filters.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # AdGuard Home API

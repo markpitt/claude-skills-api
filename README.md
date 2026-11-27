@@ -9,7 +9,7 @@ Working with REST APIs: GitHub, Microsoft Graph, Home Assistant, FreeAgent, AdGu
 
 Skills for driving an API from Claude. The first four (GitHub, Microsoft Graph, Home Assistant, FreeAgent) are orchestration hubs that route to focused reference files. `adguard-home-api` and `dokploy-api` are single-file operator guides for self-hosted services, so do not expect hub structure from every skill here.
 
-This is one of seven skill groups. [claude-skills](https://github.com/markpitt/claude-skills) lists them all and
+This is one of seven skill groups. [claude-skills](https://markpitt.dev/claude-skills/) lists them all and
 holds the shared tooling: validation, packaging, the evaluation harness and the TUI.
 
 ## Skills
@@ -17,12 +17,12 @@ holds the shared tooling: validation, packaging, the evaluation harness and the 
 <!-- BEGIN GENERATED SKILL INDEX -->
 | Skill | Bundled files | What it does |
 |---|---|---|
-| [adguard-home-api](skills/adguard-home-api/SKILL.md) | none | Query and manage an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out… |
-| [dokploy-api](skills/dokploy-api/SKILL.md) | none | Inspect and operate Docker Compose stacks managed by a Dokploy instance through its HTTP API. Covers listing… |
-| [freeagent-api](skills/freeagent-api/SKILL.md) | 7 files | Interacts with the FreeAgent accounting API to manage invoices, contacts, projects, expenses, timeslips, and… |
-| [github-api](skills/github-api/SKILL.md) | 7 files | Orchestrates GitHub API access across all services. |
-| [home-assistant-api](skills/home-assistant-api/SKILL.md) | 7 files | Orchestrates access to the Home Assistant REST API for programmatic control of smart home devices. |
-| [microsoft-graph-api](skills/microsoft-graph-api/SKILL.md) | 8 files | Orchestration hub for Microsoft Graph API across Microsoft 365 services. |
+| [adguard-home-api](skills/adguard-home-api/SKILL.md) | none | Queries and manages an AdGuard Home DNS server through its REST API. Covers stats, the query log, finding out… |
+| [dokploy-api](skills/dokploy-api/SKILL.md) | none | Inspects and operates Docker Compose stacks managed by a Dokploy instance through its HTTP API. Covers… |
+| [freeagent-api](skills/freeagent-api/SKILL.md) | 7 files | Calls the FreeAgent accounting API for invoices, estimates and credit notes, contacts, projects, timeslips… |
+| [github-api](skills/github-api/SKILL.md) | 7 files | Calls the GitHub REST and GraphQL APIs, directly or through gh api, for repositories, branches and releases… |
+| [home-assistant-api](skills/home-assistant-api/SKILL.md) | 7 files | Calls the Home Assistant REST and WebSocket APIs from code or scripts, for reading entity states and history… |
+| [microsoft-graph-api](skills/microsoft-graph-api/SKILL.md) | 8 files | Calls Microsoft Graph, the REST API for Microsoft 365 and Microsoft Entra ID (formerly Azure AD), for users… |
 
 6 skills.
 <!-- END GENERATED SKILL INDEX -->
